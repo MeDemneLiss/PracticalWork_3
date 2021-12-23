@@ -3,7 +3,8 @@ using System.Windows.Controls;
 using Lib_1;
 using LibMas;
 using Microsoft.Win32;
-
+using System.Windows.Input;
+using System;
 
 namespace Practic_3
 {
@@ -16,8 +17,12 @@ namespace Practic_3
 
         private void CreateDataGrid_Click(object sender, RoutedEventArgs e)
         {
-            if (int.TryParse(quantityColumn.Text, out int column) && int.TryParse(quantityRow.Text, out int row))
+            //if (int.TryParse(quantityColumn.Text, out int column) && int.TryParse(quantityRow.Text, out int row))
+
+            try
             {
+                int column = Convert.ToInt32(quantityColumn.Text);
+                int row = Convert.ToInt32(quantityRow.Text);
                 if (column > 0 && row > 0)
                 {
                     array = new int[row, column];
@@ -26,7 +31,10 @@ namespace Practic_3
                     return;
                 }
             }
-            Error();
+            catch 
+            {
+                MessageBox.Show("Исходные данные неверные", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -44,8 +52,16 @@ namespace Practic_3
         {
 
 
-            if (!int.TryParse(quantityColumn.Text, out int column)) return;
-            if (!int.TryParse(quantityRow.Text, out int row)) return;
+            if (!int.TryParse(quantityColumn.Text, out int column))
+            {
+                return;
+            }
+
+            if (!int.TryParse(quantityRow.Text, out int row))
+            {
+                return;
+            }
+
             if (column > 0 && row > 0)
             {
                 array = new int[row, column];
@@ -107,13 +123,21 @@ namespace Practic_3
             };
             if (open.ShowDialog() == true)
             {
-                if (open.FileName != string.Empty)
+                try
                 {
                     MatrixLogic.OpenMatrix(open.FileName, out array);                 
                     quantityColumn.Text = array.GetLength(1).ToString();
                     quantityRow.Text = array.GetLength(0).ToString();
 
                     dataGrid.ItemsSource = VisualArray.ToDataTable(array).DefaultView;
+                }
+                catch(ArgumentNullException )
+                {
+                    MessageBox.Show("Исходные данные неверные", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch(OutOfMemoryException)
+                {
+                    MessageBox.Show("Недостаточно обьема памяти для выполнения программы", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -128,6 +152,17 @@ namespace Practic_3
         private static void Error()
         {
             MessageBox.Show("Вы не создали матрицу, укажите корректное количество колонок, строк и нажмите кнопку Заполнить", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void Quantity_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key >= Key.D0 && e.Key <= Key.D9) || e.Key == Key.Back)
+            {
+                return;
+            }
+
+            MessageBox.Show("Введите цифровые данные");
+            e.Handled = true;
         }
     }
 

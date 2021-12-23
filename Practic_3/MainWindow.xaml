@@ -28,17 +28,17 @@
         </DataGrid>
         <GroupBox Header="Настройка матрицы" Margin="10,0,0,12" HorizontalAlignment="Left" Width="372" Height="220" VerticalAlignment="Bottom" FontSize="16">
             <Grid Margin="0,10,0,0">
-                <TextBox x:Name="quantityColumn"  MaxLines="1" Margin="10,10,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121" FontSize="16"></TextBox>
+                <TextBox x:Name="quantityColumn"  MaxLines="1" Margin="10,10,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121" FontSize="16" KeyDown="Quantity_KeyDown"></TextBox>
                 <Label Content="- количество колонок" Margin="150,13,0,0" Height="27" VerticalAlignment="Top" HorizontalAlignment="Left" Width="177" FontSize="16"></Label>
                 <Button Content="Заполнить" ToolTip="Заполнить созданную матрицу случайными значениями от -100 до 100" Click="FillDataGrid_Click" Margin="189,125,0,0" HorizontalAlignment="Left" Width="161" Height="52" VerticalAlignment="Top" Background="#FF52C1CC" FontSize="16"/>
-                <TextBox x:Name="quantityRow"  MaxLines="1" Margin="10,66,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121" FontSize="16"/>
+                <TextBox x:Name="quantityRow"  MaxLines="1" Margin="10,66,0,0" Height="35" VerticalAlignment="Top" HorizontalAlignment="Left" Width="121" FontSize="16"  KeyDown="Quantity_KeyDown"/>
                 <TextBlock HorizontalAlignment="Left" Margin="155,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="25" FontSize="16"><Run Text="- "/><Run Text="количество строк"/></TextBlock>
                 <Button Content="Создать"  Click="CreateDataGrid_Click" Margin="5,127,0,0" HorizontalAlignment="Left" Width="161" Height="52" VerticalAlignment="Top" Background="#FF52C1CC" FontSize="16"/>
             </Grid>
         </GroupBox>
         <GroupBox Header="Решение матрицы" Margin="404,0,0,12" HorizontalAlignment="Left" Width="378" Height="220" VerticalAlignment="Bottom" FontSize="16">
             <Grid>
-                <TextBox x:Name="finalAnswer" MaxLines="1" IsReadOnly="True" Margin="13,10,0,0" Height="45" VerticalAlignment="Top" HorizontalAlignment="Left" Width="343"/>
+                <TextBox x:Name="finalAnswer" MaxLines="1" IsReadOnly="True" Margin="13,10,0,0" Height="45" VerticalAlignment="Top" HorizontalAlignment="Left" Width="343" IsEnabled="False"/>
                 <Button Content="Рассчитать" Click="Calculate_Click" ToolTip="Найти первую строку с одинаковым кол-вом четных и нечетных значений" Margin="14,74,0,0" HorizontalAlignment="Left" Width="342" Height="53" VerticalAlignment="Top" Background="#FF52C1CC"/>
                 <Button Content="Очистить " Click="ClearDataGrid_Click" ToolTip="Очистить все поля для ввода данных" HorizontalAlignment="Left" Width="342" Height="50" VerticalAlignment="Top" Margin="14,132,0,0" Background="#FF52C1CC"/>
             </Grid>

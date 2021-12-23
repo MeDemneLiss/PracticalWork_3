@@ -25,7 +25,10 @@
                     numberRow = (i + 1).ToString();
                     return;
                 }
-                else numberRow = "0";
+                else
+                {
+                    numberRow = "0";
+                }
             }
         }
     }
